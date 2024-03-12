@@ -14,6 +14,7 @@ const chatdata = async(EVELOCORE, chat) => {
         text: chat.message.conversation || '',
         sticker: chat.message.stickerMessage || {},
         image: chat.message.imageMessage || {},
+        video: chat.message.videoMessage || {},
         isGroup: chat.key.participant != undefined,
         groupParticipantJid: chat.key.participant || '',
         groupName : data.isGroup ? groupMetadata.subject : '',
