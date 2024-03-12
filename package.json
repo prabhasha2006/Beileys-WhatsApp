@@ -1,15 +1,32 @@
 {
-    "name": "codespaces-blank",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "evelocore",
-    "license": "ISC",
-    "description": "",
-    "dependencies": {
-      "@whiskeysockets/baileys": "^6.6.0",
-      "qrcode-terminal": "^0.12.0"
-    }
-  }
+  "name": "RedDragon-MD",
+  "version": "13.0",
+  "description": "EveloCore Production 2023 copyright.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "whatsapp",
+    "2023",
+    "base",
+    "baileys-md",
+    "bot",
+    "multi-device"
+  ],
+  "author": "EveloCode",
+  "license": "ISC",
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.6.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prabhasha2006/RedDragon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prabhasha2006/RedDragon/issues"
+  },
+  "homepage": "https://github.com/prabhasha2006/RedDragon/#readme"
+}
