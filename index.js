@@ -25,27 +25,27 @@ async function connectWa() {
     })
     EVELOCORE.ev.on("messages.upsert", async({ messages }) => {
         messages.forEach(async(chat) => {
-            console.log(chat)
+            //console.log(chat)
             if (chat.message) {
                 var recieved = await chatdata(EVELOCORE, chat)
                 console.log(recieved)
                 // Check if command or message
-                const cmd = chat.message.conversation || ''
+                const cmd = recieved.text || ''
                 if (cmd) {
                     function reply(text) {
                         EVELOCORE.sendMessage(chat.key.remoteJid, { text: text }, {quoted: chat})
                     }
                     if(cmd.startsWith(prefix)){
-                        commands(EVELOCORE, chat, prefix)
+                        commands(EVELOCORE, recieved, chat, prefix)
                     }else{
-                        converaton(EVELOCORE, chat)
+                        converaton(EVELOCORE, recieved, chat)
                     }
                 }
             }
         })
     })
     EVELOCORE.ev.on('group-participants.update', async (anu) => {
-      console.log(anu)
+      //console.log(anu)
       try {
         let metadata = await EVELOCORE.groupMetadata(anu.id)
         let participants = anu.participants

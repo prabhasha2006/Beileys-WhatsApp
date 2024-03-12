@@ -1,7 +1,7 @@
-const commands = (EVELOCORE, chat, prefix) => {
-    let cmd = chat.message.conversation
+const commands = (EVELOCORE, recieved, chat, prefix) => {
+    let cmd = recieved.text
     let message = ''
-    let sender = chat.key.remoteJid
+    let sender = recieved.remoteJid
     if(cmd.startsWith(prefix)){
         message = cmd.replace(prefix,'')
         var breakWords = message.split(' ')
@@ -14,6 +14,9 @@ const commands = (EVELOCORE, chat, prefix) => {
     switch(cmd){
         case 'start': {
             reply('fuck you...')
+        }
+        case 'yt': {
+            reply(message)
         }
     }
 }
