@@ -2,52 +2,77 @@ const { default: makeWASocket, useMultiFileAuthState } = require("@whiskeysocket
 const pino = require("pino")
 const { commands } = require('./command')
 const { converaton } = require('./chat')
-let message = ''
-let command = ''
+const { chatdata } = require('./chatdata')
 let prefix = '.'
 async function connectWa() {
     const auth = await useMultiFileAuthState(`session`)
-    const sock = makeWASocket({
+    const EVELOCORE = makeWASocket({
         printQRInTerminal: true,
-        browser: ['Local WhatsApp Bot', 'Safari', '1.0.0'],
+        browser: ['EveloCore', 'Safari', '1.0.0'],
         auth: auth.state,
         logger: pino({ level: "silent" })
     })
-
-    sock.ev.on("creds.update", auth.saveCreds)
-    sock.ev.on("connection.update", 
+    EVELOCORE.ev.on("creds.update", auth.saveCreds)
+    EVELOCORE.ev.on("connection.update", 
     ({ connection }) => {
         if(connection == "open") {
-            console.log("Basic WhatsApp Bot Connected..")
+            console.log("\nAccount Connected.\n" , EVELOCORE.user)
+            console.log('\nMade by EveloCore\n')
         }
         if(connection == "close") {
             connectWa()
         }
     })
-
-    sock.ev.on("messages.upsert", ({ messages }) => {
-        messages.forEach(chat => {
-            var recieved = {
-                pushName: chat.pushName,
-                remoteJid: chat.key.remoteJid,
-                fromMe: chat.key.fromMe,
-                text: chat.message.conversation
-            }
-            console.log(recieved)
+    EVELOCORE.ev.on("messages.upsert", async({ messages }) => {
+        messages.forEach(async(chat) => {
+            console.log(chat)
             if (chat.message) {
-                const cmd = chat.message.conversation
+                var recieved = await chatdata(EVELOCORE, chat)
+                console.log(recieved)
+                // Check if command or message
+                const cmd = chat.message.conversation || ''
                 if (cmd) {
                     function reply(text) {
-                        sock.sendMessage(chat.key.remoteJid, { text: text }, {quoted: chat})
+                        EVELOCORE.sendMessage(chat.key.remoteJid, { text: text }, {quoted: chat})
                     }
                     if(cmd.startsWith(prefix)){
-                        commands(sock, chat, prefix)
+                        commands(EVELOCORE, chat, prefix)
                     }else{
-                        converaton(sock, chat)
+                        converaton(EVELOCORE, chat)
                     }
                 }
             }
-        });
+        })
+    })
+    EVELOCORE.ev.on('group-participants.update', async (anu) => {
+      console.log(anu)
+      try {
+        let metadata = await EVELOCORE.groupMetadata(anu.id)
+        let participants = anu.participants
+        for (let num of participants) {
+          try {
+            ppuser = await EVELOCORE.profilePictureUrl(num, 'image')
+          } catch (err) {
+            ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png?q=60'
+          }
+          try {
+            ppgroup = await EVELOCORE.profilePictureUrl(anu.id, 'image')
+          } catch (err) {
+            ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png?q=60'
+          }
+          if (anu.action == 'add') {
+            //add
+          } else if (anu.action == 'remove') {
+            //remove / left
+          } else if (anu.action == 'promote') {
+            //promote
+          } else if (anu.action == 'demote') {
+            //demote
+          }
+        }
+      } catch (err) {
+        console.log(err)
+      }
     })
 }
 

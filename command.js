@@ -1,4 +1,4 @@
-const commands = (sock, chat, prefix) => {
+const commands = (EVELOCORE, chat, prefix) => {
     let cmd = chat.message.conversation
     let message = ''
     let sender = chat.key.remoteJid
@@ -9,7 +9,7 @@ const commands = (sock, chat, prefix) => {
         message = message.replace(cmd+' ', '')
     }
     function reply(text) {
-        sock.sendMessage(sender, { text: text }, {quoted: chat})
+        EVELOCORE.sendMessage(sender, { text: text }, {quoted: chat})
     }
     switch(cmd){
         case 'start': {

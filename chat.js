@@ -1,9 +1,9 @@
-const chat = (sock, chat) => {
+const chat = (EVELOCORE, chat) => {
     let message = chat.message.conversation
     let sender = chat.key.remoteJid
     function reply(text) {
         console.log(text)
-        sock.sendMessage(sender, { text: text }, {quoted: chat})
+        EVELOCORE.sendMessage(sender, { text: text }, {quoted: chat})
     }
     if(message.match(/hi/gi)){
         reply('Ubata moko huththooooooooooo.........')
