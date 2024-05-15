@@ -1,32 +1,18 @@
+
 {
-  "name": "RedDragon-MD",
+  "name": "evelocore",
   "version": "13.0",
-  "description": "EveloCore Production 2023 copyright.",
+  "description": "Evelocore Production 2023 copyright.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [
-    "whatsapp",
-    "2023",
-    "base",
-    "baileys-md",
-    "bot",
-    "multi-device"
-  ],
-  "author": "EveloCode",
+  "author": "Evelocore",
   "license": "ISC",
   "dependencies": {
     "@whiskeysockets/baileys": "^6.6.0",
-    "qrcode-terminal": "^0.12.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/prabhasha2006/RedDragon.git"
-  },
-  "bugs": {
-    "url": "https://github.com/prabhasha2006/RedDragon/issues"
-  },
-  "homepage": "https://github.com/prabhasha2006/RedDragon/#readme"
+    "qrcode-terminal": "^0.12.0",
+    "wa-sticker-formatter": "^4.4.4"
+  }
 }
